@@ -7,4 +7,4 @@ services:
       - '/tmp/.X11-unix:/tmp/.X11-unix'
     environment:
 #      - DISPLAY=$DISPLAY_MAC
-      - DISPLAY=unix$DISPLAY
+      - DISPLAY
