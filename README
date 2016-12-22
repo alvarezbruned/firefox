@@ -1,0 +1,7 @@
+Firefox X11
+
+Firefox on Ubuntu:
+
+I need to execute first:
+xhost +local:docker
+And them docker-compose up -d and run well
