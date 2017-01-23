@@ -7,15 +7,15 @@ RUN apt-get update && apt-get install -y \
 	--no-install-recommends \
 	&& apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0AB215679C571D1C8325275B9BDB3D89CE49EC21 \
 	&& echo "deb http://ppa.launchpad.net/mozillateam/firefox-next/ubuntu wily main" >> /etc/apt/sources.list.d/firefox.list \
-	&& apt-get update \
-  && apt-get install wget -y \
+	&& apt-get update
+RUN apt-get install wget -y \
   && mkdir /usr/lib/selenium \
   && wget http://selenium-release.storage.googleapis.com/2.43/selenium-server-standalone-2.43.1.jar \
   && mv selenium-server-standalone-2.43.1.jar /usr/lib/selenium \
   && ln -s /usr/lib/selenium/selenium-server-standalone-2.43.1.jar /usr/lib/selenium/selenium-server-standalone.jar \
   && mkdir -p /var/log/selenium \
-  && chmod a+w /var/log/selenium \ 
-	apt-get install -y ca-certificates \
+  && chmod a+w /var/log/selenium 
+RUN apt-get install -y ca-certificates \
 	firefox \
 	hicolor-icon-theme \
 	libasound2 \
