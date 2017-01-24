@@ -1,11 +1,7 @@
-FROM debian:sid
-MAINTAINER albert alvarez
-
-
-
 
 FROM selenium/standalone-firefox:3.0.1-fermium
-MAINTAINER Selenium <selenium-developers@googlegroups.com>
+MAINTAINER albert alvarez
+
 
 USER root
 
