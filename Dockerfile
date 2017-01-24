@@ -5,15 +5,6 @@ MAINTAINER albert alvarez
 
 USER root
 
-#=====
-# VNC
-#=====
-RUN apt-get update -qqy \
-  && apt-get -qqy install \
-  x11vnc \
-  && rm -rf /var/lib/apt/lists/* /var/cache/apt/* \
-  && mkdir -p /root/.vnc \
-  && x11vnc -storepasswd secret ~/.vnc/passwd
 
 #=================
 # Locale settings
@@ -48,7 +39,7 @@ RUN chmod +x /opt/bin/entry_point.sh
 
 
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get install -y \
 	dirmngr \
 	gnupg \
 	--no-install-recommends \
@@ -56,7 +47,6 @@ RUN apt-get update && apt-get install -y \
 	&& echo "deb http://ppa.launchpad.net/mozillateam/firefox-next/ubuntu wily main" >> /etc/apt/sources.list.d/firefox.list \
 	&& apt-get update 
 RUN apt-get install -y ca-certificates \
-	firefox \
 	hicolor-icon-theme \
 	libasound2 \
 	libgl1-mesa-dri \
@@ -65,7 +55,6 @@ RUN apt-get install -y ca-certificates \
 	&& rm -rf /var/lib/apt/lists/*
 
 
-#V
 COPY local.conf /etc/fonts/local.conf
 
 ENTRYPOINT [ "/usr/bin/firefox" ]
