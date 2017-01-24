@@ -65,7 +65,7 @@ RUN apt-get install -y ca-certificates \
 	&& rm -rf /var/lib/apt/lists/*
 
 
-ENV
+#V
 COPY local.conf /etc/fonts/local.conf
 
 ENTRYPOINT [ "/usr/bin/firefox" ]
