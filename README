@@ -1,8 +1,17 @@
 Firefox X11
 
-Firefox on Ubuntu:
+Firefox with selenium IDE
 
-I need to execute first:
-xhost +local:docker
-And them docker-compose up -d and run well
-Intent of docker build
+docker run -td \
+    --net host \
+    --cpuset-cpus 0 \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v /home/albertalvarez/Descargas:/root/Descargas \
+    -e DISPLAY=unix$DISPLAY \
+    -v $HOME/Downloads:/root/Downloads \
+    --device /dev/snd \
+    -m 500000000 \
+    --memory-swap 1500000000 \
+    -v /dev/shm:/dev/shm \
+    --name firefox_selenium \
+    albertalvarezbruned/firefox
