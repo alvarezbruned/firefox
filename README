@@ -6,7 +6,6 @@ docker run -td \
     --net host \
     --cpuset-cpus 0 \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -v /home/albertalvarez/Descargas:/root/Descargas \
     -e DISPLAY=unix$DISPLAY \
     -v $HOME/Downloads:/root/Downloads \
     --device /dev/snd \
