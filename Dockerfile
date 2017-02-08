@@ -21,13 +21,11 @@ ENV LANG en-US
 
 COPY local.conf /etc/fonts/local.conf
 
-CMD [ "/usr/bin/firefox" ]
+RUN mkdir -p /usr/lib/mozilla-firefox /usr/lib/mozilla-firefox/extensions
+ADD selenium-expert_selenium-ide@Samit.Badle.xpi /usr/lib/mozilla-firefox/extensions
+ADD selenium_ide_buttons@egarracingteam.com.ar.xpi /usr/lib/mozilla-firefox/extensions
 
+CMD ["firefox","-silent","-install-global-extension /usr/lib/mozilla-firefox/extensions/selenium_ide_buttons@egarracingteam.com.ar.xpi","-setDefaultBrowser","www.google.es"]
+CMD ["firefox","-silent","-install-global-extension /usr/lib/mozilla-firefox/extensions/selenium-expert_selenium-ide@Samit.Badle.xpi","-setDefaultBrowser","www.google.es"]
 
-#RUN mkdir -p /usr/lib/mozilla-firefox/extensions
-
-
-ADD selenium-expert_selenium-ide@Samit.Badle.xpi .
-ADD selenium_ide_buttons@egarracingteam.com.ar.xpi .
-CMD ["firefox","-silent","-install-global-extension selenium_ide_buttons@egarracingteam.com.ar.xpi","-setDefaultBrowser","www.google.es"]
-ENTRYPOINT ["firefox","-silent","-install-global-extension selenium-expert_selenium-ide@Samit.Badle.xpi","-setDefaultBrowser","www.google.es"]
+ENTRYPOINT [ "/usr/bin/firefox" ]
