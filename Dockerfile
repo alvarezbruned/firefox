@@ -22,10 +22,8 @@ ENV LANG en-US
 COPY local.conf /etc/fonts/local.conf
 
 RUN mkdir -p /usr/lib/mozilla-firefox /usr/lib/mozilla-firefox/extensions
-ADD selenium-expert_selenium-ide@Samit.Badle.xpi /usr/lib/mozilla-firefox/extensions
-ADD selenium_ide_buttons@egarracingteam.com.ar.xpi /usr/lib/mozilla-firefox/extensions
+ADD https://addons.mozilla.org/firefox/downloads/latest/selenium-ide/addon-2079-latest.xpi .
 
-CMD ["firefox","-silent","-install-global-extension /usr/lib/mozilla-firefox/extensions/selenium_ide_buttons@egarracingteam.com.ar.xpi","-setDefaultBrowser","www.google.es"]
-CMD ["firefox","-silent","-install-global-extension /usr/lib/mozilla-firefox/extensions/selenium-expert_selenium-ide@Samit.Badle.xpi","-setDefaultBrowser","www.google.es"]
+CMD ["firefox","-silent","-install-global-extension","selenium-ide/addon-2079-latest.xpi","-setDefaultBrowser","www.google.es"]
 
 ENTRYPOINT [ "/usr/bin/firefox" ]
