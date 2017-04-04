@@ -1,4 +1,4 @@
-Firefox X11
+Firefox VNC with foxyproxy
 
 Firefox with selenium IDE
 
@@ -9,6 +9,8 @@ docker run -td \
     -e DISPLAY=unix$DISPLAY \
     -v $HOME/Downloads:/root/Downloads \
     --device /dev/snd \
+    -p 7000 \
+    -p 5000 \
     -m 500000000 \
     --memory-swap 1500000000 \
     -v /dev/shm:/dev/shm \
