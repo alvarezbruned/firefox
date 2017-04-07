@@ -2,17 +2,34 @@ FROM selenium/standalone-firefox-debug
 MAINTAINER albert alvarez
 
 EXPOSE 7000 5000
-RUN mkdir /usr/lib/firefox-addons
-RUN mkdir /usr/lib/firefox-addons/extensions
-COPY extensions/ /root/.mozilla/extensions
-COPY extensions/ /usr/lib/firefox-addons/extensions
 
 
-RUN wget -O /usr/local/sbin/install-mozilla-addon http://bernaerts.dyndns.org/download/ubuntu/install-mozilla-addon
-RUN chmod +x /usr/local/sbin/install-mozilla-addon
+RUN mkdir /root/extensions
 
-RUN install-mozilla-addon /root/.mozilla/extensions/foxyproxy.xpi
-RUN install-mozilla-addon /usr/lib/firefox-addons/extensions/foxyproxy.xpi
+RUN mkdir -p /usr
+RUN mkdir -p /usr/share
+RUN mkdir -p /usr/share/mozilla
+RUN mkdir -p /usr/share/mozilla/extensions
+RUN mkdir -p /usr/share/mozilla/extensions/foxyproxy
+
+
+ADD https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standard/addon-2464-latest.xpi /home/seluser
+
+RUN unzip /home/seluser/addon-2464-latest.xpi
+
+RUN cp /home/seluser/addon-2464-latest.xpi /usr/share/mozilla/extensions/foxyproxy
+
+#RUN cp /usr/share/mozilla/extensions/foxyproxy/install.rdf /
+
+RUN mv /usr/share/mozilla/extensions/foxyproxy /usr/share/mozilla/extensions/foxyproxy/$(cat /install.rdf | grep '<em:id>' | grep '{' | head -n1 | sed 's/\s//g' | sed 's/<em\:id>//g' |  sed 's/<\/em\:id>//g')
+
+
+
+
+
+
+
+
 
 #RUN sed -i 's/wait $NODE_PID/firefox -silent -install-global-extension \/home\/foxyproxy.xpi \&\& wait $NODE_PID/g' /opt/bin/entry_point.sh
 
