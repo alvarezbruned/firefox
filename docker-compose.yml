@@ -9,3 +9,4 @@ services:
     environment:
       - 'DISPLAY=:0'
     hostname: firefox
+    network_mode: 'host'
