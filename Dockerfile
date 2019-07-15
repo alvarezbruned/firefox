@@ -1,36 +1,24 @@
-FROM selenium/standalone-firefox-debug
+FROM ubuntu:bionic
 MAINTAINER albert alvarez
 
-EXPOSE 7000 5000
+EXPOSE 4444
 
+RUN apt-get update
+RUN apt-get install -y firefox
+ADD https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz /usr/local/bin/geckodriver-v0.24.0-linux64.tar.gz
+WORKDIR /usr/local/bin
+RUN tar -xvzf /usr/local/bin/geckodriver-v0.24.0-linux64.tar.gz
+WORKDIR /root
+RUN ls -lsa /usr/local/bin
+RUN rm /usr/local/bin/geckodriver-v0.24.0-linux64.tar.gz
 
-RUN mkdir /root/extensions
+RUN ls -l /usr/lib/firefox
 
-RUN mkdir -p /usr
-RUN mkdir -p /usr/share
-RUN mkdir -p /usr/share/mozilla
-RUN mkdir -p /usr/share/mozilla/extensions
-RUN mkdir -p /usr/share/mozilla/extensions/foxyproxy
+RUN groupadd -g 999 appuser && \
+    useradd -r -u 999 -g appuser appuser
+USER appuser
 
-
-ADD https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standard/addon-2464-latest.xpi /home/seluser
-
-RUN unzip /home/seluser/addon-2464-latest.xpi
-
-RUN cp /home/seluser/addon-2464-latest.xpi /usr/share/mozilla/extensions/foxyproxy
-
-#RUN cp /usr/share/mozilla/extensions/foxyproxy/install.rdf /
-
-RUN mv /usr/share/mozilla/extensions/foxyproxy /usr/share/mozilla/extensions/foxyproxy/$(cat /install.rdf | grep '<em:id>' | grep '{' | head -n1 | sed 's/\s//g' | sed 's/<em\:id>//g' |  sed 's/<\/em\:id>//g')
+CMD /usr/lib/firefox/firefox.sh
 
 
 
-
-
-
-
-
-
-#RUN sed -i 's/wait $NODE_PID/firefox -silent -install-global-extension \/home\/foxyproxy.xpi \&\& wait $NODE_PID/g' /opt/bin/entry_point.sh
-
-##CMD ["firefox","-silent","-install-global-extension selenium-expert_selenium-ide@Samit.Badle.xpi","-setDefaultBrowser","www.google.es"]
