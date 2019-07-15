@@ -14,11 +14,20 @@ RUN rm /usr/local/bin/geckodriver-v0.24.0-linux64.tar.gz
 
 RUN ls -l /usr/lib/firefox
 
+RUN mkdir -pv /home/appuser
+
 RUN groupadd -g 999 appuser && \
     useradd -r -u 999 -g appuser appuser
+
+RUN chown appuser:appuser /home/appuser
+
+WORKDIR /home/appuser
 USER appuser
 
-CMD /usr/lib/firefox/firefox.sh
+RUN export PATH=$PATH:/usr/local/bin/geckodriver
+
+
+ENTRYPOINT /usr/lib/firefox/firefox.sh
 
 
 
